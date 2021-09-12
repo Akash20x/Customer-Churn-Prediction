@@ -18,7 +18,7 @@ def batch_model():
 
 @app.route('/predict',methods=['POST'])
 def predict():
-    model = pickle.load(open('artifacts/modelv2.pkl', 'rb'))
+    model = pickle.load(open('artifacts/modelv1.pkl', 'rb'))
 
     if request.method == 'POST':
         try:
@@ -134,9 +134,9 @@ def predict():
             features_df[col]=features_df[col].astype('category').cat.codes
         
         predict_prob = model.predict_proba(features_df).tolist()
-        threshold_val=0.42
-        prediction = (model.predict_proba(features_df)[:,1] >= threshold_val).astype(int).tolist()
-        
+        prediction = model.predict(features_df).tolist()
+        threshold_val=0.5
+
         if check==0:
             result={
                 "predict":prediction[0],
