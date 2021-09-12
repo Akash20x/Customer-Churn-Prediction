@@ -136,7 +136,7 @@ def predict():
         predict_prob = model.predict_proba(features_df).tolist()
         prediction = model.predict(features_df).tolist()
         threshold_val=0.5
-
+        
         if check==0:
             result={
                 "predict":prediction[0],
